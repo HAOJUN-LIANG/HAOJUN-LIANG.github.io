@@ -1,3 +1,4 @@
-theme: jekyll-theme-cayman
 title: Welcome to the HAOJUN-LIANG's homepage!
 description: This homepage is under constrction.
+theme: jekyll-theme-primer
+markdown: kramdown
