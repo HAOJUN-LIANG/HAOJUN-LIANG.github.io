@@ -1,2 +1,2 @@
-HELLO WORLD
-THIS IS MY HOMEPAGE
+This is for my personal homepage.
+It is still updating.
