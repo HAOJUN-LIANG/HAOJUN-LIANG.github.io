@@ -1,0 +1,420 @@
+/* ============================================================
+   Haojun Liang — personal website
+   Minimal, white background, DIN Next typography.
+   ============================================================ */
+
+/* ------------------------------------------------------------
+   1. Fonts
+
+   DIN Next W1G, self-hosted. The .woff2 files in assets/fonts/
+   were generated from the .otf originals in DIN-Next-Font/ and
+   subsetted to Latin (incl. German umlauts, ~22-29 KB each):
+
+     python3 -m fontTools.subset DIN-Next-Font/DINNextW1G-<W>.otf \
+       --unicodes="U+0000-00FF,U+0131,U+0152-0153,U+2000-206F,U+20AC" \
+       --layout-features='*' --flavor=woff2 \
+       --output-file=assets/fonts/DINNextW1G-<W>.woff2
+
+   Chinese characters (梁皓君) always fall back to the system CJK
+   font at the end of the stack — DIN Next has no CJK glyphs.
+------------------------------------------------------------ */
+
+@font-face{
+  font-family:"DIN Next";
+  src:url("../fonts/DINNextW1G-Regular.woff2") format("woff2");
+  font-weight:400; font-style:normal; font-display:swap;
+}
+@font-face{
+  font-family:"DIN Next";
+  src:url("../fonts/DINNextW1G-Medium.woff2") format("woff2");
+  font-weight:500; font-style:normal; font-display:swap;
+}
+@font-face{
+  font-family:"DIN Next";
+  src:url("../fonts/DINNextW1G-Bold.woff2") format("woff2");
+  font-weight:700; font-style:normal; font-display:swap;
+}
+@font-face{
+  font-family:"DIN Next";
+  src:url("../fonts/DINNextW1G-Italic.woff2") format("woff2");
+  font-weight:400; font-style:italic; font-display:swap;
+}
+@font-face{
+  font-family:"DIN Next";
+  src:url("../fonts/DINNextW1G-BoldItalic.woff2") format("woff2");
+  font-weight:700; font-style:italic; font-display:swap;
+}
+
+/* ------------------------------------------------------------
+   2. Tokens
+------------------------------------------------------------ */
+
+:root{
+  --ink:        #000000;   /* default text + link colour       */
+  --ink-soft:   #3a3a3a;   /* secondary lines (authors, venue) */
+  --accent:     #0065BD;   /* TUM blue: active nav + hover     */
+  --fs-small:   .92rem;    /* secondary text: profile links,   */
+                           /* country names, anime subtitles — */
+                           /* one value shared by all three    */
+  --rule:       #e4e6e8;   /* hairlines                        */
+  --bg:         #ffffff;
+
+  --page-max:   860px;
+  --gutter:     clamp(20px, 5vw, 40px);
+
+  --font-sans: "DIN Next", "DIN Next W1G", "DIN Next LT Pro",
+               -apple-system, BlinkMacSystemFont, "Segoe UI", Arial,
+               "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei",
+               "Noto Sans SC", sans-serif;
+}
+
+/* ------------------------------------------------------------
+   3. Base
+------------------------------------------------------------ */
+
+*, *::before, *::after{ box-sizing:border-box; }
+
+html{
+  -webkit-text-size-adjust:100%;
+}
+
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--ink);
+  font-family:var(--font-sans);
+  /* fluid body size: 16px on a phone -> 17.5px on a desktop */
+  font-size:clamp(16px, 0.98rem + 0.18vw, 17.5px);
+  line-height:1.68;
+  font-weight:400;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+}
+
+p{ margin:0 0 0.85em; }
+p:last-child{ margin-bottom:0; }
+
+img{ max-width:100%; height:auto; display:block; }
+
+a{
+  color:var(--ink);
+  text-decoration:none;
+  transition:color .15s ease, border-color .15s ease;
+}
+a:hover, a:focus-visible{ color:var(--accent); }
+
+a:focus-visible{
+  outline:2px solid var(--accent);
+  outline-offset:3px;
+  border-radius:2px;
+}
+
+strong, b{ font-weight:700; }
+
+/* ------------------------------------------------------------
+   4. Layout shell
+------------------------------------------------------------ */
+
+.page{
+  max-width:var(--page-max);
+  margin:0 auto;
+  padding:0 var(--gutter) 4.5rem;
+}
+
+.block{
+  margin-top:2.6rem;
+}
+
+.section-title{
+  font-size:clamp(1.02rem, 0.95rem + 0.3vw, 1.18rem);
+  font-weight:700;
+  letter-spacing:.045em;
+  text-transform:uppercase;
+  margin:0 0 1rem;
+  padding-bottom:.45rem;
+  border-bottom:1px solid var(--rule);
+}
+
+/* ------------------------------------------------------------
+   5. Navigation bar
+------------------------------------------------------------ */
+
+.navbar{
+  position:sticky;
+  top:0;
+  z-index:10;
+  border-bottom:1px solid var(--rule);
+  background:var(--bg);
+}
+
+.navbar ul{
+  max-width:var(--page-max);
+  margin:0 auto;
+  padding:0 var(--gutter);
+  list-style:none;
+  display:flex;
+  flex-wrap:wrap;
+  gap:clamp(1.1rem, 4vw, 2.2rem);
+  min-height:56px;
+  align-items:center;
+}
+
+.navbar a{
+  display:inline-block;
+  padding:.55rem 0;
+  font-size:clamp(.86rem, .82rem + .18vw, .95rem);
+  font-weight:500;
+  letter-spacing:.05em;
+  text-transform:uppercase;
+}
+
+/* current page */
+.navbar a.active{ color:var(--accent); }
+
+/* very narrow phones (<=360px): shrink slightly so the three items
+   still fit on one centred line instead of wrapping */
+@media (max-width:360px){
+  .navbar ul{ gap:.9rem; }
+  .navbar a{ font-size:.78rem; letter-spacing:.04em; }
+}
+
+/* ------------------------------------------------------------
+   6. Identity block (repeated on every page)
+------------------------------------------------------------ */
+
+.id-card{
+  padding:2.4rem 0 0;
+  text-align:center;
+}
+
+.id-name{
+  font-size:clamp(1.65rem, 1.35rem + 1.35vw, 2.25rem);
+  font-weight:700;
+  line-height:1.2;
+  letter-spacing:-.005em;
+  margin:0 0 .35rem;
+}
+
+.id-line{
+  margin:0;
+  color:var(--ink);
+}
+
+/* ------------------------------------------------------------
+   7. Home — photo + bio
+------------------------------------------------------------ */
+
+.intro{
+  margin-top:2.2rem;
+  display:grid;
+  grid-template-columns:minmax(0, 232px) minmax(0, 1fr);
+  gap:clamp(1.5rem, 3.5vw, 2.6rem);
+  align-items:center;      /* the shorter column centres against the taller one */
+}
+
+.intro-photo img{
+  width:100%;
+  height:auto;
+  aspect-ratio:3 / 4;
+  object-fit:cover;
+  background:#f1f2f4;
+}
+
+.intro-links{
+  margin:.9rem 0 0;
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:.15rem .7rem;
+  font-size:var(--fs-small);
+  line-height:1.8;
+}
+
+.intro-links a{ white-space:nowrap; }
+
+.intro-bio p{ margin-bottom:1em; }
+
+/* stack on narrow screens: photo first, bio underneath */
+@media (max-width:720px){
+  .intro{
+    grid-template-columns:1fr;
+    gap:1.4rem;
+  }
+  /* the portrait shrinks, but the link row keeps the full width
+     so [Google Scholar] [Linkedin] [CV] stays on one line */
+  .intro-photo img{
+    max-width:220px;
+    margin:0 auto;
+  }
+}
+
+/* ------------------------------------------------------------
+   8. News
+------------------------------------------------------------ */
+
+.news-list{
+  list-style:none;
+  margin:0;
+  padding:0;
+}
+
+.news-list li{
+  position:relative;
+  padding-left:1.05rem;
+  margin-bottom:.55rem;
+}
+
+.news-list li::before{
+  content:"";
+  position:absolute;
+  left:0;
+  top:.72em;
+  width:4px;
+  height:4px;
+  border-radius:50%;
+  background:var(--ink);
+}
+
+.news-list li:last-child{ margin-bottom:0; }
+
+/* ------------------------------------------------------------
+   9. Publications
+------------------------------------------------------------ */
+
+.pub-list{
+  list-style:none;
+  margin:0;
+  padding:0;
+}
+
+.pub-list li{
+  margin-bottom:1.45rem;
+}
+
+.pub-list li:last-child{ margin-bottom:0; }
+
+.pub-title{
+  margin:0;
+  font-weight:700;
+  line-height:1.45;
+}
+
+.pub-authors{
+  margin:.1rem 0 0;
+  color:var(--ink-soft);
+  line-height:1.55;
+}
+
+.pub-venue{
+  margin:.1rem 0 0;
+  line-height:1.55;
+}
+
+/* [arXiv] sits on its own line under the venue, same line-height */
+.pub-link{
+  margin:.1rem 0 0;
+  line-height:1.55;
+}
+
+.me{ font-weight:700; color:var(--ink); }
+
+.pub-note{
+  margin-top:1.4rem;
+  font-size:.88rem;
+  color:var(--ink-soft);
+}
+
+/* ------------------------------------------------------------
+   10. Contact / misc
+------------------------------------------------------------ */
+
+.contact address{
+  font-style:normal;
+  line-height:1.75;
+}
+
+.prose p{ margin-bottom:1em; }
+
+/* ---- Photography masonry ----------------------------------
+   Three columns on wide screens, one on narrow. The 720px
+   breakpoint is the same value .intro uses to switch between
+   side-by-side and stacked, so the two stay in sync.
+
+   Column assignment is done by the script at the bottom of the
+   page: each photo goes into whichever column is currently
+   shortest, so reading left-to-right and top-to-bottom follows
+   the original order. CSS columns cannot do this — it fills the
+   first column completely before starting the second.
+
+   The columns:3 below is the fallback for when the script does
+   not run (JS disabled): still a three-column masonry, only read
+   downwards. Once the script takes over, display:flex overrides it.
+------------------------------------------------------------ */
+
+.masonry{
+  columns:3;
+  column-gap:12px;
+  margin-top:.25rem;
+}
+
+.masonry img{
+  width:100%;
+  height:auto;
+  display:block;
+  margin-bottom:12px;
+  break-inside:avoid;
+  background:#f1f2f4;      /* placeholder tint while lazy-loading */
+}
+
+/* once the script takes over: three equal columns side by side */
+.masonry.is-columns{
+  display:flex;
+  align-items:flex-start;
+  gap:12px;
+  columns:auto;
+}
+
+.masonry-col{
+  flex:1 1 0;
+  min-width:0;
+}
+
+@media (max-width:720px){
+  .masonry{ columns:1; }
+}
+
+/* Miscellaneous > Traveling: "A Austria · C China · ..."
+   the grouping letter stays at body size and is bold, the country
+   names drop to the same size as the profile links on the Home page */
+/* flex wrap gives one uniform gap between every group; the separator is
+   the tail of its own group with the SAME 1em on its left, so the space
+   before and after each "\00b7" is identical (17.5px each on desktop).
+   1em also packs the groups tightest at the 780px content width, which
+   keeps the leftover space at the end of a line small. */
+.travel-list{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:baseline;
+  column-gap:1em;
+  row-gap:0;          /* row spacing comes from line-height, same as body text */
+}
+
+/* keep a whole group ("S Switzerland, Sweden, Spain") on one line so the
+   grouping letter is never orphaned at the end of a line */
+.travel-list .g{
+  white-space:nowrap;
+}
+
+.travel-list .g:not(:last-child)::after{
+  content:"\00b7";
+  margin-left:1em;
+}
+
+.travel-list .p{
+  font-size:var(--fs-small);
+}
+
+/* secondary note, e.g. the series list after an anime title */
+.detail{
+  font-size:var(--fs-small);
+}
