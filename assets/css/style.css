@@ -414,6 +414,27 @@ strong, b{ font-weight:700; }
   font-size:var(--fs-small);
 }
 
+/* Anime posters: five per row on wide screens, two on narrow.
+   Same 720px breakpoint as .intro and .masonry, so every layout
+   on the site switches at the same width. */
+.anime-grid{
+  display:grid;
+  grid-template-columns:repeat(5, 1fr);
+  gap:12px;
+  margin-top:1.4rem;
+}
+
+.anime-grid img{
+  width:100%;
+  height:auto;
+  display:block;
+  background:#f1f2f4;      /* placeholder tint while lazy-loading */
+}
+
+@media (max-width:720px){
+  .anime-grid{ grid-template-columns:repeat(2, 1fr); }
+}
+
 /* secondary note, e.g. the series list after an anime title */
 .detail{
   font-size:var(--fs-small);
