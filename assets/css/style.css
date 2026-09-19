@@ -319,8 +319,7 @@ strong, b{ font-weight:700; }
 .me{ font-weight:700; color:var(--ink); }
 
 .pub-note{
-  margin-top:1.4rem;
-  font-size:.88rem;
+  margin:0 0 .9rem;        /* sits above the year heading */
   color:var(--ink-soft);
 }
 
