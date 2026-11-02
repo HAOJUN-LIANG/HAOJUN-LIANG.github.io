@@ -310,18 +310,9 @@ strong, b{ font-weight:700; }
   line-height:1.55;
 }
 
-/* [arXiv] sits on its own line under the venue, same line-height */
-.pub-link{
-  margin:.1rem 0 0;
-  line-height:1.55;
-}
 
 .me{ font-weight:700; color:var(--ink); }
 
-.pub-note{
-  margin:0 0 .9rem;        /* sits above the year heading */
-  color:var(--ink-soft);
-}
 
 /* ------------------------------------------------------------
    10. Contact / misc
