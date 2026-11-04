@@ -325,29 +325,48 @@ strong, b{ font-weight:700; }
 
 .prose p{ margin-bottom:1em; }
 
-/* ---- Photography masonry ----------------------------------
-   Three columns on wide screens, one on narrow. The 720px
-   breakpoint is the same value .intro uses to switch between
-   side-by-side and stacked, so the two stay in sync.
+/* ---- Photography timeline ---------------------------------
+   Each place is its own block: a label line, then that place's
+   photos below it — three columns on wide screens, two on narrow.
+   The 720px breakpoint is the one .intro and .anime-grid use, so
+   the whole page switches at the same width.
 
-   Column assignment is done by the script at the bottom of the
-   page: each photo goes into whichever column is currently
-   shortest, so reading left-to-right and top-to-bottom follows
-   the original order. CSS columns cannot do this — it fills the
-   first column completely before starting the second.
+   Gaps are written as text-box margins, but what a reader sees is
+   the gap between the TEXT and the PHOTO. A line box carries .34em
+   of leading above and below its glyphs while a photo's edge is its
+   box edge, so each margin below is one leading short of the round
+   number it is aiming for:
+       label -> photos        one line-height   (1.68em - .34em)
+       photos -> next label   two line-heights  (3.36em - .34em)
 
-   The columns:3 below is the fallback for when the script does
-   not run (JS disabled): still a three-column masonry, only read
-   downwards. Once the script takes over, display:flex overrides it.
+   Columns inside each block are assigned by the script at the bottom
+   of the page: every photo goes into whichever column is currently
+   shortest, so reading left-to-right and top-to-bottom follows the
+   original order. CSS columns cannot do that — it fills the first
+   column completely before starting the second.
 ------------------------------------------------------------ */
 
-.masonry{
-  columns:3;
-  column-gap:12px;
+.photo-timeline{
   margin-top:.25rem;
 }
 
-.masonry img{
+.photo-month{
+  margin-bottom:3.02em;
+}
+
+.photo-month:last-child{ margin-bottom:0; }
+
+/* two classes, so this beats .prose p { margin-bottom:1em } */
+.photo-month .photo-meta{
+  margin:0 0 1.34em;
+}
+
+.photo-grid{
+  columns:3;               /* fallback when the script does not run */
+  column-gap:12px;
+}
+
+.photo-grid img{
   width:100%;
   height:auto;
   display:block;
@@ -356,21 +375,27 @@ strong, b{ font-weight:700; }
   background:#f1f2f4;      /* placeholder tint while lazy-loading */
 }
 
-/* once the script takes over: three equal columns side by side */
-.masonry.is-columns{
+/* without this the trailing 12px would add to the block gap */
+.photo-grid > img:last-child,
+.photo-col > img:last-child{
+  margin-bottom:0;
+}
+
+/* once the script takes over */
+.photo-grid.is-columns{
   display:flex;
   align-items:flex-start;
   gap:12px;
   columns:auto;
 }
 
-.masonry-col{
+.photo-col{
   flex:1 1 0;
   min-width:0;
 }
 
 @media (max-width:720px){
-  .masonry{ columns:1; }
+  .photo-grid{ columns:2; }
 }
 
 /* Miscellaneous > Traveling: "A Austria · C China · ..."
