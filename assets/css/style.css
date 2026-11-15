@@ -258,24 +258,37 @@ strong, b{ font-weight:700; }
   padding:0;
 }
 
+/* date | text, two columns. 4.3em fits the widest date in DIN Next
+   Bold ("May 2026" measures 4.25em), so every entry's text starts at
+   the same x and wrapped lines stay aligned under it */
 .news-list li{
-  position:relative;
-  padding-left:1.05rem;
+  display:grid;
+  grid-template-columns:4.3em 1fr;
+  column-gap:1.7em;
   margin-bottom:.55rem;
 }
 
-.news-list li::before{
-  content:"";
-  position:absolute;
-  left:0;
-  top:.72em;
-  width:4px;
-  height:4px;
-  border-radius:50%;
-  background:var(--ink);
+.news-list li:last-child{ margin-bottom:0; }
+
+.news-date{
+  font-weight:700;
+  white-space:nowrap;
 }
 
-.news-list li:last-child{ margin-bottom:0; }
+/* Education: institution left, years right on the same line. On a
+   narrow screen the institution wraps inside its own column so the
+   years stay on the first line instead of dropping onto one of their own */
+.edu-item p{ margin:0; }
+
+.edu-row{
+  display:flex;
+  align-items:baseline;
+  column-gap:1rem;
+}
+
+.edu-row b{ flex:1 1 auto; min-width:0; }
+
+.edu-date{ white-space:nowrap; }
 
 /* ------------------------------------------------------------
    9. Publications
