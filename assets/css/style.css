@@ -275,20 +275,8 @@ strong, b{ font-weight:700; }
   white-space:nowrap;
 }
 
-/* Education: institution left, years right on the same line. On a
-   narrow screen the institution wraps inside its own column so the
-   years stay on the first line instead of dropping onto one of their own */
+/* Education: institution, degree and years on three lines */
 .edu-item p{ margin:0; }
-
-.edu-row{
-  display:flex;
-  align-items:baseline;
-  column-gap:1rem;
-}
-
-.edu-row b{ flex:1 1 auto; min-width:0; }
-
-.edu-date{ white-space:nowrap; }
 
 /* ------------------------------------------------------------
    9. Publications
@@ -309,7 +297,7 @@ strong, b{ font-weight:700; }
 .pub-title{
   margin:0;
   font-weight:700;
-  line-height:1.45;
+  line-height:1.55;
 }
 
 .pub-authors{
@@ -330,6 +318,15 @@ strong, b{ font-weight:700; }
 /* ------------------------------------------------------------
    10. Contact / misc
 ------------------------------------------------------------ */
+
+/* Home body blocks, a little looser than the 1.68 site default.
+   The name (1.2) and the profile links (1.8) keep their own values. */
+.id-line,
+.intro-bio,
+.news-list,
+.edu-item{
+  line-height:1.75;
+}
 
 .contact address{
   font-style:normal;
