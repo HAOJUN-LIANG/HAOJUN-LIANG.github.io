@@ -53,7 +53,7 @@
   --ink:        #000000;   /* default text + link colour       */
   --ink-soft:   #3a3a3a;   /* secondary lines (authors, venue) */
   --accent:     #0065BD;   /* TUM blue: active nav + hover     */
-  --fs-small:   .92rem;    /* secondary text: profile links,   */
+  --fs-small:   15px;      /* secondary text: profile links,   */
                            /* country names, anime subtitles — */
                            /* one value shared by all three    */
   --rule:       #e4e6e8;   /* hairlines                        */
@@ -97,11 +97,13 @@ p:last-child{ margin-bottom:0; }
 img{ max-width:100%; height:auto; display:block; }
 
 a{
-  color:var(--ink);
+  color:var(--accent);
   text-decoration:none;
   transition:color .15s ease, border-color .15s ease;
 }
-a:hover, a:focus-visible{ color:var(--accent); }
+/* the navbar is the exception: black until it is the current page */
+.navbar a{ color:var(--ink); }
+.navbar a:hover, .navbar a:focus-visible{ color:var(--accent); }
 
 a:focus-visible{
   outline:2px solid var(--accent);
@@ -126,7 +128,8 @@ strong, b{ font-weight:700; }
 }
 
 .section-title{
-  font-size:clamp(1.02rem, 0.95rem + 0.3vw, 1.18rem);
+  font-size:20px;
+  line-height:1.75;
   font-weight:700;
   letter-spacing:.045em;
   text-transform:uppercase;
@@ -162,7 +165,8 @@ strong, b{ font-weight:700; }
 .navbar a{
   display:inline-block;
   padding:.55rem 0;
-  font-size:clamp(.86rem, .82rem + .18vw, .95rem);
+  font-size:15px;
+  line-height:1.75;
   font-weight:500;
   letter-spacing:.05em;
   text-transform:uppercase;
@@ -171,11 +175,11 @@ strong, b{ font-weight:700; }
 /* current page */
 .navbar a.active{ color:var(--accent); }
 
-/* very narrow phones (<=360px): shrink slightly so the three items
-   still fit on one centred line instead of wrapping */
+/* very narrow phones (<=360px): tighten the gap and letter-spacing so
+   the three items still fit on one line */
 @media (max-width:360px){
   .navbar ul{ gap:.9rem; }
-  .navbar a{ font-size:.78rem; letter-spacing:.04em; }
+  .navbar a{ font-size:13px; letter-spacing:.04em; }
 }
 
 /* ------------------------------------------------------------
@@ -225,7 +229,7 @@ strong, b{ font-weight:700; }
   display:flex;
   flex-wrap:wrap;
   justify-content:center;
-  gap:.15rem .7rem;
+  gap:.15rem 15px;
   font-size:var(--fs-small);
   line-height:1.8;
 }
@@ -269,6 +273,9 @@ strong, b{ font-weight:700; }
 }
 
 .news-list li:last-child{ margin-bottom:0; }
+
+/* display:grid above would otherwise override the hidden attribute */
+.news-list li[hidden]{ display:none; }
 
 .news-date{
   font-weight:700;
@@ -318,6 +325,27 @@ strong, b{ font-weight:700; }
 /* ------------------------------------------------------------
    10. Contact / misc
 ------------------------------------------------------------ */
+
+/* News toggle: styled like a news date — bold and blue — but it is a
+   button, so it needs font:inherit to pick up DIN Next */
+.news-toggle{
+  display:block;
+  margin-top:.55rem;
+  padding:0;
+  border:0;
+  background:none;
+  font:inherit;
+  font-weight:700;
+  line-height:1.75;
+  color:var(--accent);
+  cursor:pointer;
+}
+
+.news-toggle:focus-visible{
+  outline:2px solid var(--accent);
+  outline-offset:3px;
+  border-radius:2px;
+}
 
 /* Home body blocks, a little looser than the 1.68 site default.
    The name (1.2) and the profile links (1.8) keep their own values. */
